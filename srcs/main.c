@@ -1,6 +1,6 @@
 #include "rush.h"
 
-unsigned int	ft_delimiter_count(const char *input, const char c)
+static unsigned int	ft_delimiter_count(const char *input, const char c)
 {
 	unsigned int	count;
 
@@ -16,16 +16,18 @@ unsigned int	ft_delimiter_count(const char *input, const char c)
 	return (count);
 }
 
-int	*rush_parse(const char *input, int *size)
+int	*rush_parse(const char *input, unsigned int *size)
 {
 	int		*arr;
 	size_t	i_arr;
 	size_t	i;
 
 	*size = 0;
-	arr = malloc(ft_delimiter_count(input, ' ') * sizeof(int));
 	i = -1;
 	i_arr = 0;
+	arr = malloc(ft_delimiter_count(input, ' ') * sizeof(int));
+	if (arr == NULL)
+		return (NULL);
 	while (input[++i] != '\0')
 	{
 		if (input[i] == ' ')
@@ -52,11 +54,6 @@ int	arr_view_validvalue(const int *arr_view, int size)
 	return (size == -1);
 }
 
-int	rush_solve(const int *arr_view, const int size)
-{
-	return (0);
-}
-
 enum e_error
 {
 	OK,
@@ -69,14 +66,14 @@ enum e_error
 
 int	rush01(const char *input)
 {
-	int	size;
-	int	*arr_view;
-	int	status;
+	enum e_error	status;
+	int				*arr_view;
+	unsigned int	size;
 
 	arr_view = rush_parse(input, &size);
 	if (size > 0)
 	{
-		for (int i = 0; i < size - 1; i++)
+		for (unsigned int i = 0; i < size - 1; i++)
 			printf("%d, ", arr_view[i]);
 		printf("%d\n", arr_view[size -1]);
 	}
