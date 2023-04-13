@@ -25,7 +25,7 @@ int	ft_isdigit(int c)
 
 void	ft_strskip(const char **p_str, const char c)
 {
-	while (**p_str == c)
+	while (**p_str != '\0' && **p_str == c)
 		(*p_str)++;
 }
 
