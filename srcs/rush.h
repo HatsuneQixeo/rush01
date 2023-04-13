@@ -21,7 +21,7 @@ typedef struct s_game
 {
 	t_grid		grid;
 	const int	*arr_view;
-	int			arr_size;
+	int			size;
 }			t_game;
 
 size_t	ft_strlen(const char *str);

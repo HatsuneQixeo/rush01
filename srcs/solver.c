@@ -28,12 +28,6 @@ static void	grid_clear(int **grid, const unsigned int length)
 	free(grid);
 }
 
-int	valid(t_game game, const t_point pos)
-{
-
-	return (0);
-}
-
 int	solve(t_game game)
 {
 	return (0);
@@ -45,7 +39,7 @@ int	rush_solve(const int *arr_view, const unsigned int size)
 		.grid.layout = grid_new(size / 4),
 		.grid.length = size / 4,
 		.arr_view = arr_view,
-		.arr_size = size
+		.size = size
 	};
 	const int		status = solve(game);
 
