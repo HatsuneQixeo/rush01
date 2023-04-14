@@ -86,7 +86,7 @@ int	rush01(const char *input)
 		status = Unbalanced;
 	else if (!arr_view_validvalue(arr_view, size))
 		status = InvalidValue;
-	else if (rush_solve(arr_view, size))
+	else if (!rush_solve(arr_view, size))
 		status = NoViableSolution;
 	else
 		status = OK;

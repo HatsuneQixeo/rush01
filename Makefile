@@ -1,8 +1,8 @@
 NAME		:=	rush01
 
 CC			:=	gcc
-CXXFLAGS	:=	-Wall -Wextra -Werror
-# CXXFLAGS	+=	-fsanitize=address -g
+CXXFLAGS	:=	-Wall -Wextra -Werror -g
+# CXXFLAGS	+=	-fsanitize=address
 CXXFLAGS	+=	-Wno-unused-variable -Wno-unused-parameter
 
 SRC_DIR		:=	srcs

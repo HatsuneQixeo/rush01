@@ -23,22 +23,37 @@ static void	grid_clear(int **grid, const unsigned int length)
 	free(grid);
 }
 
-int	solve(t_game game)
+int	solve(int **grid, const unsigned int length, const int *arr_view,
+			const unsigned int index)
 {
+	unsigned int	i;
+	const t_point	pos = {
+		.x = index % length,
+		.y = index / length
+	};
+
+	if (!(pos.x < length && pos.y < length))
+		return (1);
+	i = 0;
+	while (i++ < length)
+	{
+		grid[pos.y][pos.x] = i;
+		if (valid_no_repetition(grid, length, pos)
+			&& valid_view(grid, length, arr_view, pos)
+			&& solve(grid, length, arr_view, index + 1))
+			return (1);
+	}
+	grid[pos.y][pos.x] = 0;
 	return (0);
 }
 
-int	rush_solve(const int *arr_view, const unsigned int size)
+int	rush_solve(const int *arr_view, const unsigned int size)	
 {
-	const t_game	game = {
-		.grid.layout = grid_new(size / 4),
-		.grid.length = size / 4,
-		.arr_view = arr_view,
-		.size = size
-	};
-	const int		status = solve(game);
+	const unsigned int	length = size / 4;
+	int **const			grid = grid_new(length);
+	const int			status = solve(grid, length, arr_view, 0);
 
-	grid_dlog(2, game.grid.layout, game.grid.length, game.arr_view);
-	grid_clear(game.grid.layout, game.grid.length);
+	grid_dlog(2, grid, length, arr_view);
+	grid_clear(grid, length);
 	return (status);
 }

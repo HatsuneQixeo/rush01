@@ -30,8 +30,10 @@ void	ft_strskip(const char **p_str, const char c);
 int		ft_stoi(const char *str, size_t *pos);
 void	*ft_memset(void *dst, const char set, const size_t bytes);
 
-int		valid_no_repetition(t_grid grid, const t_point pos);
-int		valid_view(t_grid grid, const int *arr_view, const t_point pos);
+int		valid_no_repetition(int **grid, const unsigned int length,
+			const t_point pos);
+int		valid_view(int **grid, const unsigned int length,
+			const int *arr_view, const t_point pos);
 
 int		rush_solve(const int *arr_view, const unsigned int size);
 
