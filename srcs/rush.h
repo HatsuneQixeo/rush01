@@ -4,24 +4,11 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct s_grid
-{
-	int				**layout;
-	unsigned int	length;
-}			t_grid;
-
 typedef struct s_point
 {
 	unsigned int	x;
 	unsigned int	y;
 }			t_point;
-
-typedef struct s_game
-{
-	t_grid			grid;
-	const int		*arr_view;
-	unsigned int	size;
-}			t_game;
 
 /* Utilites */
 size_t	ft_strlen(const char *str);
