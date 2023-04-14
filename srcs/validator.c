@@ -39,19 +39,22 @@ int	valid_view(int **grid, const unsigned int length,
 	const int	left = arr_view[pos.y + length * 2];
 	const int	right = arr_view[pos.y + length * 3];
 
-	// grid_dlog(2, grid, length, arr_view);
 	return (view_count(grid, length,
-				(t_point){.x = pos.x, .y = 0},
-				(t_point){.x = 0, .y = 1}) <= up
+			(t_point){.x = pos.x, .y = 0},
+			(t_point){.x = 0, .y = 1})
+			<= up
 		&& view_count(grid, length,
-				(t_point){.x = pos.x, .y = length - 1},
-				(t_point){.x = 0, .y = -1}) <= down
+			(t_point){.x = pos.x, .y = length - 1},
+			(t_point){.x = 0, .y = -1})
+			<= down
 		&& view_count(grid, length,
-				(t_point){.x = 0, .y = pos.y},
-				(t_point){.x = 1, .y = 0}) <= left
+			(t_point){.x = 0, .y = pos.y},
+			(t_point){.x = 1, .y = 0})
+			<= left
 		&& view_count(grid, length,
-				(t_point){.x = length - 1, .y = pos.y},
-				(t_point){.x = -1, .y = 0}) <= right);
+			(t_point){.x = length - 1, .y = pos.y},
+			(t_point){.x = -1, .y = 0})
+			<= right);
 }
 
 int	valid_no_repetition(int **grid, const unsigned int length,
