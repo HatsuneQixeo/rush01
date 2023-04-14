@@ -23,8 +23,8 @@ static void	grid_clear(int **grid, const unsigned int length)
 	free(grid);
 }
 
-int	solve(int **grid, const unsigned int length, const int *arr_view,
-			const unsigned int index)
+static int	solve(int **grid, const unsigned int length,
+			const int *arr_view, const unsigned int index)
 {
 	unsigned int	i;
 	const t_point	pos = {
