@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include <stdlib.h>
 
 size_t	ft_strlen(const char *str)
@@ -9,12 +8,6 @@ size_t	ft_strlen(const char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
-}
-
-void	ft_dputendl(const int fd, const char *str)
-{
-	write(fd, str, ft_strlen(str));
-	write(fd, "\n", 1);
 }
 
 int	ft_isdigit(int c)
@@ -43,4 +36,15 @@ int	ft_stoi(const char *str, size_t *pos)
 	while (ft_isdigit(str[*pos]))
 		value = (value * 10) + (str[(*pos)++] - '0');
 	return (value);
+}
+
+void	*ft_memset(void *dst, const char set, const size_t bytes)
+{
+	char		*it;
+	const char	*end = dst + bytes;
+
+	it = dst;
+	while (it != end)
+		*it++ = set;
+	return (dst);
 }

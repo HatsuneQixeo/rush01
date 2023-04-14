@@ -15,9 +15,9 @@ static int	view_count(t_grid grid, const t_point start, const t_point dir)
 	int				prev;
 	t_point			pos;
 
-	count = 1;
-	prev = grid.layout[start.y][start.x];
-	pos = point_sum(start, dir);
+	count = 0;
+	prev = 0;
+	pos = start;
 	while (pos.x < grid.length && pos.y < grid.length
 		&& grid.layout[pos.y][pos.x] > prev)
 	{

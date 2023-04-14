@@ -8,7 +8,7 @@ static unsigned int	ft_delimiter_count(const char *input, const char c)
 	ft_strskip(&input, c);
 	while (*input != '\0')
 	{
-		count += *input != c;
+		count++;
 		while (*input != '\0' && *input != c)
 			input++;
 		ft_strskip(&input, c);
@@ -32,13 +32,12 @@ int	*rush_parse(const char *input, unsigned int *size)
 	{
 		if (input[i] == ' ')
 			continue ;
-		else if (ft_isdigit(input[i]) || input[i] == '-' || input[i] == '+')
-			arr[i_arr++] = ft_stoi(input, &i);
-		else
+		else if (!(ft_isdigit(input[i]) || input[i] == '-' || input[i] == '+'))
 		{
 			free(arr);
 			return (NULL);
 		}
+		arr[i_arr++] = ft_stoi(input, &i);
 		i--;
 	}
 	*size = i_arr;
