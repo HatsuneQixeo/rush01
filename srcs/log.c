@@ -13,7 +13,10 @@ static void	ft_iatoa(char *str, const int *line, const unsigned int length)
 
 	i = -1;
 	while (++i < length)
-		str[i] = line[i] + '0';
+	{
+		str[i * 2] = line[i] + '0';
+		str[(i * 2) + 1] = ' ';
+	}
 }
 
 void	grid_dlog(const int fd, int **grid, const unsigned int length,
@@ -21,7 +24,7 @@ void	grid_dlog(const int fd, int **grid, const unsigned int length,
 {
 	unsigned int	y;
 	char			*line;
-	const size_t	line_length = length + 4;
+	const size_t	line_length = length + (length - 1) + 4;
 
 	y = -1;
 	line = ft_memset(malloc(line_length + 1), ' ', line_length);
