@@ -9,7 +9,7 @@ t_point	point_sum(const t_point a, const t_point b)
 	return (point);
 }
 
-static int	view_count(int **grid, const unsigned int length,
+static int	view_count(t_tile **grid, const unsigned int length,
 			const t_point start, const t_point dir)
 {
 	unsigned int	count;
@@ -21,17 +21,17 @@ static int	view_count(int **grid, const unsigned int length,
 	pos = start;
 	while (pos.x < length && pos.y < length)
 	{
-		if (grid[pos.y][pos.x] > largest)
+		if (grid[pos.y][pos.x].value > largest)
 		{
 			count++;
-			largest = grid[pos.y][pos.x];
+			largest = grid[pos.y][pos.x].value;
 		}
 		pos = point_sum(pos, dir);
 	}
 	return (count);
 }
 
-int	valid_view(int **grid, const unsigned int length,
+int	valid_view(t_tile **grid, const unsigned int length,
 			const int *arr_view, const t_point pos)
 {
 	const int	updown = view_count(grid, length,
@@ -61,23 +61,23 @@ int	valid_view(int **grid, const unsigned int length,
 		return (1);
 }
 
-int	valid_no_repetition(int **grid, const unsigned int length,
+int	valid_no_repetition(t_tile **grid, const unsigned int length,
 			const t_point pos)
 {
 	t_point		it;
-	const int	value = grid[pos.y][pos.x];
+	const int	value = grid[pos.y][pos.x].value;
 
 	it = pos;
 	while (++it.y % length != pos.y)
 	{
 		it.y %= length;
-		if (grid[it.y][pos.x] == value)
+		if (grid[it.y][pos.x].value == value)
 			return (0);
 	}
 	while (++it.x % length != pos.x)
 	{
 		it.x %= length;
-		if (grid[pos.y][it.x] == value)
+		if (grid[pos.y][it.x].value == value)
 			return (0);
 	}
 	return (1);

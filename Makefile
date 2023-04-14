@@ -2,6 +2,7 @@ NAME		:=	rush01
 
 CC			:=	gcc
 CXXFLAGS	:=	-Wall -Wextra -Werror
+CXXFLAGS	+=	-g
 # CXXFLAGS	+=	-fsanitize=address
 # CXXFLAGS	+=	-Wno-unused-variable -Wno-unused-parameter
 
