@@ -34,27 +34,31 @@ static int	view_count(int **grid, const unsigned int length,
 int	valid_view(int **grid, const unsigned int length,
 			const int *arr_view, const t_point pos)
 {
-	const int	up = arr_view[pos.x];
-	const int	down = arr_view[pos.x + length];
-	const int	left = arr_view[pos.y + length * 2];
-	const int	right = arr_view[pos.y + length * 3];
+	const int	updown = view_count(grid, length,
+				(t_point){.x = pos.x, .y = 0},
+				(t_point){.x = 0, .y = 1})
+				== arr_view[pos.x]
+			&& view_count(grid, length,
+				(t_point){.x = pos.x, .y = length - 1},
+				(t_point){.x = 0, .y = -1})
+				== arr_view[pos.x + length];
+	const int	leftright = view_count(grid, length,
+				(t_point){.x = 0, .y = pos.y},
+				(t_point){.x = 1, .y = 0})
+				== arr_view[pos.y + length * 2]
+			&& view_count(grid, length,
+				(t_point){.x = length - 1, .y = pos.y},
+				(t_point){.x = -1, .y = 0})
+				== arr_view[pos.y + length * 3];
 
-	return (view_count(grid, length,
-			(t_point){.x = pos.x, .y = 0},
-			(t_point){.x = 0, .y = 1})
-			<= up
-		&& view_count(grid, length,
-			(t_point){.x = pos.x, .y = length - 1},
-			(t_point){.x = 0, .y = -1})
-			<= down
-		&& view_count(grid, length,
-			(t_point){.x = 0, .y = pos.y},
-			(t_point){.x = 1, .y = 0})
-			<= left
-		&& view_count(grid, length,
-			(t_point){.x = length - 1, .y = pos.y},
-			(t_point){.x = -1, .y = 0})
-			<= right);
+	if (pos.x == length - 1 && pos.y == length - 1)
+		return (updown + leftright);
+	else if (pos.x == length - 1)
+		return (leftright);
+	else if (pos.y == length - 1)
+		return (updown);
+	else
+		return (1);
 }
 
 int	valid_no_repetition(int **grid, const unsigned int length,
