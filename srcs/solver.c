@@ -53,7 +53,7 @@ int	rush_solve(const int *arr_view, const unsigned int size)
 	int **const			grid = grid_new(length);
 	const int			status = solve(grid, length, arr_view, 0);
 
-	grid_dlog(2, grid, length, arr_view);
+	grid_dlog(1, grid, length, arr_view);
 	grid_clear(grid, length);
 	return (status);
 }
