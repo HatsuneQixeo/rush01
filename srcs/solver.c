@@ -1,16 +1,5 @@
 #include "rush.h"	
 
-void	*ft_memset(void *dst, const char set, const size_t bytes)
-{
-	char		*it;
-	const char	*end = dst + bytes;
-
-	it = dst;
-	while (it != end)
-		*it++ = set;
-	return (dst);
-}
-
 static int	**grid_new(const unsigned int length)
 {
 	int					**grid;

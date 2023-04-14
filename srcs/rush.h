@@ -7,28 +7,30 @@
 
 typedef struct s_grid
 {
-	int	**layout;
-	int	length;
+	int				**layout;
+	unsigned int	length;
 }			t_grid;
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	unsigned int	x;
+	unsigned int	y;
 }			t_point;
 
 typedef struct s_game
 {
-	t_grid		grid;
-	const int	*arr_view;
-	int			size;
+	t_grid			grid;
+	const int		*arr_view;
+	unsigned int	size;
 }			t_game;
 
+/* Utilites */
 size_t	ft_strlen(const char *str);
 void	ft_dputendl(const int fd, const char *str);
 int		ft_isdigit(int c);
 void	ft_strskip(const char **p_str, const char c);
 int		ft_stoi(const char *str, size_t *pos);
+void	*ft_memset(void *dst, const char set, const size_t bytes);
 
 int		valid_no_repetition(t_grid grid, const t_point pos);
 int		valid_view(t_grid grid, const int *arr_view, const t_point pos);

@@ -23,8 +23,8 @@ int	*rush_parse(const char *input, unsigned int *size)
 	size_t	i;
 
 	*size = 0;
-	i = -1;
 	i_arr = 0;
+	i = -1;
 	arr = malloc(ft_delimiter_count(input, ' ') * sizeof(int));
 	if (arr == NULL)
 		return (NULL);
@@ -45,13 +45,15 @@ int	*rush_parse(const char *input, unsigned int *size)
 	return (arr);
 }
 
-int	arr_view_validvalue(const int *arr_view, int size)
+int	arr_view_validvalue(const int *arr_view, const unsigned int size)
 {
-	const int	largest = size / 4;
+	const int		largest = size / 4;
+	unsigned int	i;
 
-	while (size-- && 1 <= arr_view[size] && arr_view[size] <= largest)
-		;
-	return (size == -1);
+	i = 0;
+	while (i < size && 1 <= arr_view[i] && arr_view[i] <= largest)
+		i++;
+	return (i == size);
 }
 
 enum e_error
@@ -101,14 +103,14 @@ typedef struct s_err
 
 int	rush_err(const enum e_error err)
 {
-	const t_errmessage	err_messages[] = {
+	const t_errmessage	erros[] = {
 	{.err = Empty, .msg = "Error: Empty Argument"},
 	{.err = InvalidCharacter, .msg = "Error: Invalid Character"},
 	{.err = Unbalanced, .msg = "Error: Unbalanced Amount of View"},
 	{.err = InvalidValue, .msg = "Error: Invalid Value"},
 	{.err = NoViableSolution, .msg = "Error: No Viable Solution"}
 	};
-	const unsigned int	message_size = sizeof(err_messages) / sizeof(err_messages[0]);
+	const unsigned int	message_size = sizeof(erros) / sizeof(erros[0]);
 	unsigned int		i;
 
 	if (err == OK)
@@ -116,9 +118,9 @@ int	rush_err(const enum e_error err)
 	i = -1;
 	while (++i < message_size)
 	{
-		if (err != err_messages[i].err)
+		if (err != erros[i].err)
 			continue ;
-		ft_dputendl(2, err_messages[i].msg);
+		ft_dputendl(2, erros[i].msg);
 		return (err);
 	}
 	ft_dputendl(2, "Error: Unknown error code");
