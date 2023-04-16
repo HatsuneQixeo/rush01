@@ -1,4 +1,4 @@
-#include "rush.h"
+#include "grid.h"
 
 static int	view_count(t_grid grid, const unsigned int length,
 			const t_point start, const t_point dir)

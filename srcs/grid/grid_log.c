@@ -1,11 +1,4 @@
-#include <unistd.h>
-#include "rush.h"
-
-void	ft_dputendl(const int fd, const char *str)
-{
-	write(fd, str, ft_strlen(str));
-	write(fd, "\n", 1);
-}
+#include "grid.h"
 
 static int	get_tilevalue(const unsigned int i, const void *arr)
 {
@@ -43,11 +36,11 @@ void	grid_dlog(const int fd, t_grid grid, const unsigned int length,
 	char			*line;
 	const size_t	line_length = length + (length - 1) + 4;
 
-	y = -1;
 	line = ft_memset(malloc(line_length + 1), ' ', line_length);
 	line[line_length] = '\0'; 
 	ft_iatoa(&line[2], arr_view, length, get_intvalue);
 	ft_dputendl(fd, line);
+	y = -1;
 	while (++y < length)
 	{
 		line[0] = arr_view[(length * 2) + y] + '0';

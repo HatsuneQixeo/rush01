@@ -1,6 +1,7 @@
-#include "rush.h"
+#include "grid.h"
 
 /* This way of logging probably won't work if the length is more than 9 */
+/* How naive I was, thinking I was ever going to even reach 9 */
 void	option_show(const bool *arr_options, const unsigned int length)
 {
 	char *const		str = malloc(length + 1);
@@ -25,7 +26,7 @@ void	grid_show_option(t_grid grid, const unsigned int length)
 		while (++it.x < length)
 		{
 			/* Forbidden */
-			fprintf(stderr, "(x:%d, y:%d):", it.x, it.y);
+			point_flog(stderr, "", it);
 			option_show(grid[it.y][it.x].arr_option, length);
 		}
 	}

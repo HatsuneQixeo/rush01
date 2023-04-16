@@ -1,14 +1,4 @@
-#include <stdlib.h>
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
+#include "utils.h"
 
 int	ft_isdigit(int c)
 {
@@ -21,7 +11,7 @@ void	ft_strskip(const char **p_str, const char c)
 		(*p_str)++;
 }
 
-int	ft_stoi(const char *str, size_t *pos)
+int	ft_stoi(const char *str, size_t *const pos)
 {
 	int	value;
 

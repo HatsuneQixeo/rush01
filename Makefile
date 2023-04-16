@@ -4,7 +4,7 @@ CC			:=	gcc
 CXXFLAGS	:=	-Wall -Wextra -Werror
 CXXFLAGS	+=	-g
 # CXXFLAGS	+=	-fsanitize=address
-CXXFLAGS	+=	-Wno-unused-variable -Wno-unused-parameter -Wno-unused-but-set-variable
+# CXXFLAGS	+=	-Wno-unused-variable -Wno-unused-parameter -Wno-unused-but-set-variable
 
 SRC_DIR		:=	srcs
 SRCS		:=	$(shell find $(SRC_DIR) -name "*.c")

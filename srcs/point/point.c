@@ -1,5 +1,4 @@
 #include "point.h"
-#include <stdio.h>
 
 t_point	point_sum(const t_point a, const t_point b)
 {
