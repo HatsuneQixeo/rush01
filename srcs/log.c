@@ -36,7 +36,7 @@ static void	ft_iatoa(char *str, const void *line, const unsigned int length,
 	}
 }
 
-void	grid_dlog(const int fd, t_tile **grid, const unsigned int length,
+void	grid_dlog(const int fd, t_grid grid, const unsigned int length,
 			const int *arr_view)
 {
 	unsigned int	y;

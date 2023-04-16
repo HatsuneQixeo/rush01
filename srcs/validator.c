@@ -1,37 +1,28 @@
 #include "rush.h"
 
-t_point	point_sum(const t_point a, const t_point b)
-{
-	t_point	point;
-
-	point.x = a.x + b.x;
-	point.y = a.y + b.y;
-	return (point);
-}
-
-static int	view_count(t_tile **grid, const unsigned int length,
+static int	view_count(t_grid grid, const unsigned int length,
 			const t_point start, const t_point dir)
 {
 	unsigned int	count;
-	int				largest;
-	t_point			pos;
+	int				highest;
+	t_point			it;
 
 	count = 0;
-	largest = 0;
-	pos = start;
-	while (pos.x < length && pos.y < length)
+	highest = 0;
+	it = start;
+	while (it.x < length && it.y < length)
 	{
-		if (grid[pos.y][pos.x].value > largest)
+		if (grid[it.y][it.x].value > highest)
 		{
 			count++;
-			largest = grid[pos.y][pos.x].value;
+			highest = grid[it.y][it.x].value;
 		}
-		pos = point_sum(pos, dir);
+		it = point_sum(it, dir);
 	}
 	return (count);
 }
 
-int	valid_view(t_tile **grid, const unsigned int length,
+int	valid_view(t_grid grid, const unsigned int length,
 			const int *arr_view, const t_point pos)
 {
 	const int	updown = view_count(grid, length,
@@ -52,7 +43,7 @@ int	valid_view(t_tile **grid, const unsigned int length,
 				== arr_view[pos.y + length * 3];
 
 	if (pos.x == length - 1 && pos.y == length - 1)
-		return (updown + leftright);
+		return (updown && leftright);
 	else if (pos.x == length - 1)
 		return (leftright);
 	else if (pos.y == length - 1)
@@ -61,23 +52,33 @@ int	valid_view(t_tile **grid, const unsigned int length,
 		return (1);
 }
 
-int	valid_no_repetition(t_tile **grid, const unsigned int length,
-			const t_point pos)
+int	all_valid(t_grid grid, const unsigned int length, const int *arr_view)
 {
-	t_point		it;
-	const int	value = grid[pos.y][pos.x].value;
+	unsigned int	i;
 
-	it = pos;
-	while (++it.y % length != pos.y)
+	i = -1;
+	while (++i < length)
 	{
-		it.y %= length;
-		if (grid[it.y][pos.x].value == value)
+		if (!valid_view(grid, length, arr_view,
+				(t_point){.x = length - 1, .y = i})
+			|| !valid_view(grid, length, arr_view,
+				(t_point){.x = i, .y = length - 1}))
 			return (0);
 	}
-	while (++it.x % length != pos.x)
+	return (1);
+}
+
+int	valid_no_repetition(t_grid grid, const unsigned int length,
+			const t_point pos)
+{
+	unsigned int	i;
+	const int		value = grid[pos.y][pos.x].value;
+
+	i = -1;
+	while (++i < length)
 	{
-		it.x %= length;
-		if (grid[pos.y][it.x].value == value)
+		if ((i != pos.y && grid[i][pos.x].value == value)
+			|| (i != pos.x && grid[pos.y][i].value == value))
 			return (0);
 	}
 	return (1);

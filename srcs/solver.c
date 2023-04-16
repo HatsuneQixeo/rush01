@@ -1,23 +1,20 @@
 #include "rush.h"	
 
-static char	*new_possibility(const unsigned int length)
+static t_tile	tile_new(const unsigned int length)
 {
-	char	*arr_possible;
-	size_t	i;
+	t_tile	tile;
 
-	arr_possible = malloc(length + 1);
-	if (arr_possible == NULL)
-		return (NULL);
-	arr_possible[length] = '\0';
-	i = -1;
-	while (++i < length)
-		arr_possible[i] = (i + 1) + '0';
-	return (arr_possible);
+	tile.value = 0;
+	tile.arr_option = malloc(length);
+	if (tile.arr_option == NULL)
+		return (tile);
+	ft_memset(tile.arr_option, true, length);
+	return (tile);
 }
 
-static t_tile	**grid_new(const unsigned int length)
+static t_grid	grid_new(const unsigned int length)
 {
-	t_tile				**grid;
+	t_grid				grid;
 	t_point				i;
 	const unsigned int	line_bytes = length * sizeof(**grid);
 
@@ -28,15 +25,12 @@ static t_tile	**grid_new(const unsigned int length)
 		grid[i.y] = malloc(line_bytes);
 		i.x = -1;
 		while (++i.x < length)
-		{
-			grid[i.y][i.x].value = 0;
-			grid[i.y][i.x].arr_possible = new_possibility(length);
-		}
+			grid[i.y][i.x] = tile_new(length);
 	}
 	return (grid);
 }
 
-static void	grid_clear(t_tile **grid, const unsigned int length)
+static void	grid_clear(t_grid grid, const unsigned int length)
 {
 	t_point	i;
 
@@ -45,13 +39,13 @@ static void	grid_clear(t_tile **grid, const unsigned int length)
 	{
 		i.x = -1;
 		while (++i.x < length)
-			free(grid[i.y][i.x].arr_possible);
+			free(grid[i.y][i.x].arr_option);
 		free(grid[i.y]);
 	}
 	free(grid);
 }
 
-static int	solve(t_tile **grid, const unsigned int length,
+static int	solve(t_grid grid, const unsigned int length,
 			const int *arr_view, const unsigned int index)
 {
 	unsigned int	n;
@@ -60,11 +54,17 @@ static int	solve(t_tile **grid, const unsigned int length,
 		.y = index / length
 	};
 
-	if (!(pos.x < length && pos.y < length))
+	if (index == length * length)
 		return (1);
+	else if (grid[pos.y][pos.x].value != 0)
+		return (valid_no_repetition(grid, length, pos)
+			&& valid_view(grid, length, arr_view, pos)
+		 	&& solve(grid, length, arr_view, index + 1));
 	n = 0;
 	while (n++ < length)
 	{
+		if (grid[pos.y][pos.x].arr_option[n - 1] == false)
+			continue ;
 		grid[pos.y][pos.x].value = n;
 		if (valid_no_repetition(grid, length, pos)
 			&& valid_view(grid, length, arr_view, pos)
@@ -78,11 +78,17 @@ static int	solve(t_tile **grid, const unsigned int length,
 int	rush_solve(const int *arr_view, const unsigned int size)	
 {
 	const unsigned int	length = size / 4;
-	t_tile **const		grid = grid_new(length);
-	// grid_dlog(1, grid, length, arr_view);
-	const int			status = solve(grid, length, arr_view, 0);
+	const t_grid		grid = grid_new(length);
+	int					status;
 
+	eliminator(grid, length, arr_view);
+	status = solve(grid, length, arr_view, 0);
 	grid_dlog(1, grid, length, arr_view);
+	if (status == 1 && !all_valid(grid, length, arr_view))
+	{
+		fprintf(stderr, "no it's not\n");
+		status = 0;
+	}
 	grid_clear(grid, length);
 	return (status);
 }
