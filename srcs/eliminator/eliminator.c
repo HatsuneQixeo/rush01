@@ -2,13 +2,14 @@
 
 t_point	grid_startpoint(const unsigned int length, const unsigned int i)
 {
-	if (i < length)
-		return ((t_point){.x = i, .y = 0});
-	if (i < length * 2)
-		return ((t_point){.x = i % length, .y = length - 1});
-	if (i < length * 3)
-		return ((t_point){.x = 0, .y = i % length});
-	return ((t_point){.x = length - 1, .y = i % length});
+	const t_point	arr[] = {
+	{.x = i, .y = 0},
+	{.x = i % length, .y = length - 1},
+	{.x = 0, .y = i % length},
+	{.x = length - 1, .y = i % length},
+	};
+
+	return (arr[i / length]);
 }
 
 void	elimination_view(t_grid grid, const unsigned int length,
