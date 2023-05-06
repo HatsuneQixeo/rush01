@@ -59,7 +59,7 @@ enum e_error
 	OK,
 	Empty,
 	InvalidCharacter,
-	Unbalanced,
+	Imbalanced,
 	InvalidValue,
 	NoViableSolution,
 };
@@ -75,7 +75,7 @@ static int	rush_err(const enum e_error err)
 	const t_errmessage	errors[] = {
 	{.err = Empty, .msg = "Error: Empty Argument"},
 	{.err = InvalidCharacter, .msg = "Error: Invalid Character"},
-	{.err = Unbalanced, .msg = "Error: Unbalanced Amount of View"},
+	{.err = Imbalanced, .msg = "Error: Imbalanced Amount of View"},
 	{.err = InvalidValue, .msg = "Error: Invalid Value"},
 	{.err = NoViableSolution, .msg = "Error: No Viable Solution"}
 	};
